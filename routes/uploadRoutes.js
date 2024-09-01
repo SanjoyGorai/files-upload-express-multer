@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.post("/upload/single", upload.single("image"), uploadSingleImage);
-router.post("/upload/multiple", upload.array("images"), uploadMultipleImages);
+router.post("/single", upload.single("file"), uploadSingleImage);
+router.post("/multiple", upload.array("files", 10), uploadMultipleImages);
 
 export default router;

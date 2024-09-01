@@ -20,6 +20,29 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+// File filtering based on MIME types
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "video/mp4",
+    "audio/mpeg",
+    "application/pdf",
+  ];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file type"), false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 10, // 10MB limit
+  },
+});
 
 export default upload;

@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import uploadRoutes from "./routes/uploadRoutes.js";
-import { removeFile } from "./utils/fileUtils.js";
 import { cleanupDirectory } from "./utils/cleanupDirectory.js";
 
 dotenv.config(); // Load environment variables from .env file
@@ -12,7 +11,7 @@ app.use(express.json());
 // removeFile("uploads");
 cleanupDirectory("./uploads");
 
-app.use("/api", uploadRoutes);
+app.use("/api/v1/upload", uploadRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

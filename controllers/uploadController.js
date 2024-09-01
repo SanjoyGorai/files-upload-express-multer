@@ -25,8 +25,18 @@ export const uploadSingleImage = async (req, res) => {
     setTimeout(() => removeFile(file.path), 4000);
 
     res.status(200).json({ url: fileUrl, public_id: result.public_id });
-  } catch (err) {
-    res.status(500).send("Server error");
+  } catch (error) {
+    res.send("sssdf");
+    if (error.code === "LIMIT_FILE_SIZE") {
+      return res.status(413).json({
+        message:
+          "File size exceeds the 10MB limit. Please upload a smaller file.",
+      });
+    }
+    res.status(500).json({
+      message: "An error occurred during file upload.",
+      error: error.message,
+    });
   }
 };
 
